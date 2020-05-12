@@ -1,0 +1,54 @@
+---
+cluster: "research"
+form:
+  - cpus
+  - mem
+  - days
+  - hours
+  - partition
+attributes:
+  cpus:
+    widget: "number_field"
+    label: "Number of cores"
+    value: 4
+    help: Number of cores to allocate.
+    min: 0
+    max: 32
+    step: 1
+    id: 'num_cores'
+  mem:
+    widget: "number_field"
+    label: "Memory [GiB]"
+    value: 4
+    help: Memory to allocate for job.
+    min: 1
+    max: 128
+    step: 1
+    id: 'mem'
+  days:
+    widget: "number_field"
+    label: "Running time [days]"
+    value: 0
+    help: Number of days to run.
+    min: 0
+    max: 14
+    step: 1
+    id: 'days'
+  hours:
+    widget: "number_field"
+    label: "Running time [hours]"
+    value: 8
+    help: Nuber of hours to run.
+    min: 1
+    max: 24
+    step: 1
+    id: 'hours'
+  partition:
+    widget: select
+    label: "partition to run in"
+    help: |
+      - **medium** - at most 7 days available (up to 128 cores in all jobs)
+      - **long** - at most 28 days available (upt o 32 cores in all jobs)
+    options:
+      - [ "medium", "medium" ]
+      - [ "long", "long" ]

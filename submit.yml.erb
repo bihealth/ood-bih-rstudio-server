@@ -1,0 +1,20 @@
+<%-
+  cpus = cpus.blank? ? 4 : cpus.to_i
+  mem = mem.blank? ? 4 : mem.to_i
+  days = days.blank? ? 0 : days.to_i
+  hours = hours.blank? ? 8 : hours.to_i
+  partition = partition.blank? ? "long" : partition
+-%>
+---
+batch_connect:
+  template: "basic"
+script:
+  native:
+    - "--cpus-per-task"
+    - "<%= cpus %>"
+    - "--mem"
+    - "<%= mem %>"
+    - "--partition"
+    - "<%= partition %>"
+    - "--time"
+    - "<%= days %>-<%= hours %>"
