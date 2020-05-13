@@ -9,11 +9,7 @@ if [[ ! -e ~/.singularity ]]; then
     ln -sr ~/work/.singularity ~/.singularity
 fi
 
-export RSTUDIO_SERVER_IMAGE=shub://nickjer/singularity-rstudio
-export RSTUDIO_SERVER_IMAGE=/fast/users/holtgrem_c/.singularity/cache/shub/d261002009b55218923d523e9b71c70ea5edd4d3/singularity-rstudio_latest.sif
-
-# Pull singularity image.
-singularity pull $RSTUDIO_SERVER_IMAGE
+export RSTUDIO_SERVER_IMAGE=/opt/ood/singularity-images/singularity-rstudio_3.6.2.sif
 
 # Define a password and export it for RStudio authentication
 password="$(create_passwd 16)"

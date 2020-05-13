@@ -15,7 +15,7 @@ attributes:
     min: 0
     max: 32
     step: 1
-    id: 'num_cores'
+    id: 'cpus'
   mem:
     widget: "number_field"
     label: "Memory [GiB]"
@@ -52,3 +52,4 @@ attributes:
     options:
       - [ "medium", "medium" ]
       - [ "long", "long" ]
+    id: 'partition'

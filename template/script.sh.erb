@@ -12,7 +12,7 @@ working_dir_container = working_dir_host
 #
 
 # PAM auth helper used by RStudio
-export RSTUDIO_AUTH="<%= working_dir_container %>/bin/auth"
+export RSTUDIO_AUTH=$(readlink -f "<%= working_dir_container %>/bin/auth")
 
 # Generate an `rsession` wrapper script
 export RSESSION_WRAPPER_FILE="<%= working_dir_container %>/rsession.sh"
@@ -31,7 +31,7 @@ sed 's/^ \{2\}//' > "<%= working_dir_host %>/rsession.sh" << EOL
   # Launch the original command
   echo "Launching rsession..."
   set -x
-  exec rsession --r-libs-user "${R_LIBS_USER}" "\${@}"
+  exec rsession $(if [[ ! -z "${R_LIBS_USER}" ]]; then echo --r-libs-user "${R_LIBS_USER}"; fi) "\${@}"
 EOL
 )
 chmod 700 "<%= working_dir_host %>/rsession.sh"
@@ -49,7 +49,10 @@ echo "Starting up rserver..."
 # Dump environment without functions for use in rsession.sh, filtering readonly variables
 (set -o posix; set) | grep -vP '^(BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID)' > "<%= working_dir_host %>/.env"
 
-singularity run -B "$TMPDIR:/tmp" \
+CLUSTER_USER=$(echo $USER | sed -e 's/@CHARITE/_c/' -e 's/@MDC-BERLIN/_m/')
+more_binds=$(readlink -f /fast/users/$CLUSTER_USER),$(readlink -f /fast/users/$CLUSTER_USER/work),$(readlink -f /fast/users/$CLUSTER_USER/scratch)
+
+singularity run -B "$TMPDIR:/tmp,${more_binds}" \
   "$RSTUDIO_SERVER_IMAGE" \
   --www-port "${port}" \
   --auth-none 0 \
