@@ -50,9 +50,11 @@ echo "Starting up rserver..."
 (set -o posix; set) | grep -vP '^(BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID)' > "<%= working_dir_host %>/.env"
 
 CLUSTER_USER=$(echo $USER | sed -e 's/@CHARITE/_c/' -e 's/@MDC-BERLIN/_m/')
-more_binds=$(readlink -f /fast/users/$CLUSTER_USER),$(readlink -f /fast/users/$CLUSTER_USER/work),$(readlink -f /fast/users/$CLUSTER_USER/scratch)
+#BINDS=$(readlink -f /fast/users/$CLUSTER_USER),$(readlink -f /fast/users/$CLUSTER_USER/work),$(readlink -f /fast/users/$CLUSTER_USER/scratch)
+#BINDS=/fast/users,/fast/projects/,/fast/groups,/fast/home,/fast/work,/fast/scratch
+BINDS=/fast
 
-singularity run -B "$TMPDIR:/tmp,${more_binds}" \
+singularity run --no-home -B "$BINDS" \
   "$RSTUDIO_SERVER_IMAGE" \
   --www-port "${port}" \
   --auth-none 0 \
