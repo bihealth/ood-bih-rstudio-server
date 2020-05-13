@@ -1,55 +1,41 @@
 ---
 cluster: "research"
 form:
-  - cpus
-  - mem
-  - days
-  - hours
-  - partition
+  - bih_cpus
+  - bih_mem
+  - bih_days
+  - bih_partition
 attributes:
-  cpus:
+  bih_cpus:
     widget: "number_field"
     label: "Number of cores"
     value: 4
     help: Number of cores to allocate.
-    min: 0
+    min: 1
     max: 32
     step: 1
-    id: 'cpus'
-  mem:
+  bih_mem:
     widget: "number_field"
     label: "Memory [GiB]"
     value: 4
     help: Memory to allocate for job.
     min: 1
     max: 128
-    step: 1
-    id: 'mem'
-  days:
+  bih_days:
     widget: "number_field"
     label: "Running time [days]"
-    value: 0
+    value: 1
     help: Number of days to run.
-    min: 0
+    min: 1
     max: 14
     step: 1
-    id: 'days'
-  hours:
-    widget: "number_field"
-    label: "Running time [hours]"
-    value: 8
-    help: Nuber of hours to run.
-    min: 1
-    max: 24
-    step: 1
-    id: 'hours'
-  partition:
+  bih_partition:
     widget: select
     label: "partition to run in"
+    value: "long"
     help: |
       - **medium** - at most 7 days available (up to 128 cores in all jobs)
       - **long** - at most 28 days available (upt o 32 cores in all jobs)
     options:
       - [ "medium", "medium" ]
       - [ "long", "long" ]
-    id: 'partition'
