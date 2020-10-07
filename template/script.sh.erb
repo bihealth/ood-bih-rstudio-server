@@ -58,6 +58,7 @@ singularity run --no-home -B "$BINDS" \
   "$RSTUDIO_SERVER_IMAGE" \
   --www-port "${port}" \
   --auth-none 0 \
+  --secure-cookie-key-file /tmp/${SLURM_JOB_ID}_${USER}_rstudio-secure-cookie-key \
   --auth-pam-helper-path "${RSTUDIO_AUTH}" \
   --auth-encrypt-password 0 \
   --rsession-path "${RSESSION_WRAPPER_FILE}"
