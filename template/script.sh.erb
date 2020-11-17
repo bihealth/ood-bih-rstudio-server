@@ -52,7 +52,11 @@ echo "Starting up rserver..."
 CLUSTER_USER=$(echo $USER | sed -e 's/@CHARITE/_c/' -e 's/@MDC-BERLIN/_m/')
 #BINDS=$(readlink -f /fast/users/$CLUSTER_USER),$(readlink -f /fast/users/$CLUSTER_USER/work),$(readlink -f /fast/users/$CLUSTER_USER/scratch)
 #BINDS=/fast/users,/fast/projects/,/fast/groups,/fast/home,/fast/work,/fast/scratch
-BINDS=/fast
+if [[ -d /fast ]]; then
+    BINDS=/fast
+else
+    BINDS=/data
+fi
 
 singularity run --no-home -B "$BINDS" \
   "$RSTUDIO_SERVER_IMAGE" \
