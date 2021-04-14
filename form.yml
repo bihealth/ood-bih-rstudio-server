@@ -1,11 +1,41 @@
 ---
 cluster: "research"
 form:
+  - r_provider
+  - miniconda_path
+  - singularity_image
   - bih_cpus
   - bih_mem
   - bih_days
   - bih_partition
 attributes:
+  r_provider:
+    widget: "select"
+    label: "R Source"
+    help: |
+      You can either use one of the provided Singularity images (based
+      on miniconda3 Docker images) or provide a path to your miniconda3
+      installation.
+    options:
+      - [ "singularity", "singularity" ]
+      - [ "miniconda",   "miniconda"   ]
+  miniconda_path:
+    widget: "text_field"
+    label: "Miniconda Path"
+    help: |
+      Specify the path including the "bin" of the Miniconda3 installation
+      that you want to use.  Separate name of environment with a colon.
+      Example: `~/miniconda3/bin:fancy-r`.
+  singularity_image:
+    widget: "select"
+    label: "Singularity Image"
+    help: |
+      The singularity images are based on the miniconda3 Docker image
+      and install jupyter notebook, scikit-learn, pandas, and other
+      popular packages.  Missing packages? Try to build and use your
+      own miniconda package!
+    options:
+      - [ "singularity-rstudio_3.6.2.sif", "singularity-rstudio_3.6.2.sif" ]
   bih_cpus:
     widget: "number_field"
     label: "Number of cores"
