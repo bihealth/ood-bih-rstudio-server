@@ -81,5 +81,5 @@ singularity run --no-home -B "$BINDS" \
   --secure-cookie-key-file /tmp/${SLURM_JOB_ID}_${USER}_rstudio-secure-cookie-key \
   --auth-pam-helper-path "${RSTUDIO_AUTH}" \
   --auth-encrypt-password 0 \
-  --rsession-which-r "${RSTUDIO_WHICH_R}" \
+  $(if [[ ! -z "${RSTUDIO_WHICH_R}" ]]; then echo --rsession-which-r "${RSTUDIO_WHICH_R}"; fi) \
   --rsession-path "${RSESSION_WRAPPER_FILE}"
