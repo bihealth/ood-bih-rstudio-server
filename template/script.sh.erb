@@ -31,6 +31,13 @@ umask 077
 sed 's/^ \{2\}//' > "<%= working_dir_host %>/rsession.sh" << EOL
   #!/usr/bin/env bash
 
+  set -x
+
+  for x in /opt/R/*; do
+    export LD_LIBRARY_PATH=\$x/lib/R/lib:\$LD_LIBRARY_PATH
+  done
+  export LD_LIBRARY_PATH=/usr/lib64/:\$LD_LIBRARY_PATH
+
   # Log all output from this script
   export RSESSION_LOG_FILE="<%= working_dir_container %>/rsession.log"
 
@@ -65,13 +72,18 @@ echo "Starting up rserver..."
 # Dump environment without functions for use in rsession.sh, filtering readonly variables
 (set -o posix; set) | grep -vP '^(BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID)' > "<%= working_dir_container %>/.env"
 
+SERVER_DATA_DIR=$(TMPDIR=/tmp mktemp -d)
+mkdir -p ${SERVER_DATA_DIR}/var/{lib,run}
+chmod a+rw ${SERVER_DATA_DIR}/var/run
+chmod +t ${SERVER_DATA_DIR}/var/run
+
 CLUSTER_USER=$(echo $USER | sed -e 's/@CHARITE/_c/' -e 's/@MDC-BERLIN/_m/')
 #BINDS=$(readlink -f /fast/users/$CLUSTER_USER),$(readlink -f /fast/users/$CLUSTER_USER/work),$(readlink -f /fast/users/$CLUSTER_USER/scratch)
 #BINDS=/fast/users,/fast/projects/,/fast/groups,/fast/home,/fast/work,/fast/scratch
 if [[ -d /fast ]]; then
-    BINDS=/data,/fast
+    BINDS=/data,/fast,${SERVER_DATA_DIR}/var/lib:/var/lib/rstudio-server,${SERVER_DATA_DIR}/var/run:/var/run/rstudio-server
 else
-    BINDS=/data
+    BINDS=/data,${SERVER_DATA_DIR}/var/lib:/var/lib/rstudio-server,${SERVER_DATA_DIR}/var/run:/var/run/rstudio-server
 fi
 
 singularity run --no-home -B "$BINDS" \

@@ -30,11 +30,11 @@ attributes:
     widget: "select"
     label: "Singularity Image"
     help: |
-      The singularity images are based on the miniconda3 Docker image
-      and install jupyter notebook, scikit-learn, pandas, and other
-      popular packages.  Missing packages? Try to build and use your
-      own miniconda package!
+      The singularity images are based on CentOS 7 with R and RStudio
+      Server. Missing packages? Try to build and use your own miniconda
+      package!
     options:
+      - [ "singularity-rstudio-1.2.5042.sif", "singularity-rstudio-1.2.5042.sif" ]
       - [ "singularity-rstudio_3.6.2.sif", "singularity-rstudio_3.6.2.sif" ]
   bih_cpus:
     widget: "number_field"
