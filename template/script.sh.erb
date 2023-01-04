@@ -38,6 +38,10 @@ sed 's/^ \{2\}//' > "<%= working_dir_host %>/rsession.sh" << EOL
   done
   export LD_LIBRARY_PATH=/usr/lib64/:\$LD_LIBRARY_PATH
 
+<% if context.r_provider == "miniconda" %>
+  export LD_PRELOAD=<%= context.miniconda_path.split("bin:")[0] + "envs/" + context.miniconda_path.split("bin:")[1] + "/lib/libstdc++.so.6" %>
+<% end %>
+
   # Log all output from this script
   export RSESSION_LOG_FILE="<%= working_dir_container %>/rsession.log"
 
