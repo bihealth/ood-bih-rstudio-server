@@ -9,7 +9,11 @@ if [[ ! -e ~/.singularity ]]; then
     ln -sr ~/work/.singularity ~/.singularity
 fi
 
-export RSTUDIO_SERVER_IMAGE=/opt/ood/singularity-images/<%= context.singularity_image %>
+if [[ "<%= context.singularity_image %>" =~ /* ]]; then
+    export RSTUDIO_SERVER_IMAGE=<%= context.singularity_image %>
+else
+    export RSTUDIO_SERVER_IMAGE=/opt/ood/singularity-images/<%= context.singularity_image %>
+fi
 
 # Define a password and export it for RStudio authentication
 password="$(create_passwd 16)"

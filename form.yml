@@ -36,6 +36,7 @@ attributes:
       own miniconda package!
     options:
       - [ "singularity-rstudio_3.6.2.sif", "singularity-rstudio_3.6.2.sif" ]
+      - [ "rocker-rstudio_4.3.1.sif", "/data/cephfs-1/work/groups/cubi/users/holtgrem_c/rocker-rstudio_4.3.1.sif" ]
   bih_cpus:
     widget: "number_field"
     label: "Number of cores"
