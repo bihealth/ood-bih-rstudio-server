@@ -87,6 +87,7 @@ else
 fi
 
 if [[ "$RSTUDIO_SERVER_IMAGE" = *singularity-rstudio* ]]; then
+  # remove this block once beta of the new version is over
   singularity run --no-home -B "$BINDS" \
     "$RSTUDIO_SERVER_IMAGE" \
     --www-port "${port}" \
