@@ -100,7 +100,7 @@ if [[ "$RSTUDIO_SERVER_IMAGE" = *singularity* ]]; then
     --server-data-dir='/tmp/run' \
     --server-user=$USER
 else
-  singularity run --no-home -B "$BINDS" \
+  apptainer run --no-home -B "$BINDS" \
     --env "PATH=/usr/lib/rstudio-server/bin:${PATH}" \
     "$RSTUDIO_SERVER_IMAGE" \
     rserver \
