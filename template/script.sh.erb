@@ -86,7 +86,7 @@ else
     BINDS=/data,${SERVER_DATA_DIR}/var/lib:/var/lib/rstudio-server,${SERVER_DATA_DIR}/var/run:/var/run/rstudio-server
 fi
 
-if [[ "$RSTUDIO_SERVER_IMAGE" = *singularity* ]]; then
+if [[ "$RSTUDIO_SERVER_IMAGE" = *singularity-rstudio* ]]; then
   singularity run --no-home -B "$BINDS" \
     "$RSTUDIO_SERVER_IMAGE" \
     --www-port "${port}" \
