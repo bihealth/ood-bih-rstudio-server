@@ -86,16 +86,34 @@ else
     BINDS=/data,${SERVER_DATA_DIR}/var/lib:/var/lib/rstudio-server,${SERVER_DATA_DIR}/var/run:/var/run/rstudio-server
 fi
 
-singularity run --no-home -B "$BINDS" \
-  "$RSTUDIO_SERVER_IMAGE" \
-  --www-port "${port}" \
-  --auth-none 0 \
-  --auth-timeout-minutes 0 \
-  --auth-stay-signed-in-days 30 \
-  --auth-pam-helper-path "${RSTUDIO_AUTH}" \
-  --auth-encrypt-password 0 \
-  $(if [[ ! -z "${RSTUDIO_WHICH_R}" ]]; then echo --rsession-which-r "${RSTUDIO_WHICH_R}"; fi) \
-  --rsession-path "${RSESSION_WRAPPER_FILE}" \
-  --server-data-dir='/tmp/run' \
-  --server-user=$USER
- 
+if [[ "$RSTUDIO_SERVER_IMAGE" = *singularity-rstudio* ]]; then
+  # remove this block once beta of the new version is over
+  singularity run --no-home -B "$BINDS" \
+    "$RSTUDIO_SERVER_IMAGE" \
+    --www-port "${port}" \
+    --auth-none 0 \
+    --auth-timeout-minutes 0 \
+    --auth-stay-signed-in-days 30 \
+    --auth-pam-helper-path "${RSTUDIO_AUTH}" \
+    --auth-encrypt-password 0 \
+    $(if [[ ! -z "${RSTUDIO_WHICH_R}" ]]; then echo --rsession-which-r "${RSTUDIO_WHICH_R}"; fi) \
+    --rsession-path "${RSESSION_WRAPPER_FILE}" \
+    --server-data-dir='/tmp/run' \
+    --server-user=$USER
+else
+  apptainer run --no-home -B "$BINDS" \
+    --env "PATH=/usr/lib/rstudio-server/bin:${PATH}" \
+    "$RSTUDIO_SERVER_IMAGE" \
+    rserver \
+    --server-user "$USER" \
+    --www-port "${port}" \
+    --auth-none 0 \
+    --auth-timeout-minutes 0 \
+    --auth-stay-signed-in-days 30 \
+    --auth-pam-helper-path "${RSTUDIO_AUTH}" \
+    --auth-encrypt-password 0 \
+    $(if [[ ! -z "${RSTUDIO_WHICH_R}" ]]; then echo --rsession-which-r "${RSTUDIO_WHICH_R}"; fi) \
+    --rsession-path "${RSESSION_WRAPPER_FILE}" \
+    --server-data-dir='/tmp/run' 
+fi
+
