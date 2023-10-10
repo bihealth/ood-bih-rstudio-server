@@ -87,7 +87,10 @@ else
 fi
 
 singularity run --no-home -B "$BINDS" \
+  --env "PATH=/usr/lib/rstudio-server/bin:${PATH}" \
   "$RSTUDIO_SERVER_IMAGE" \
+  rserver \
+  --server-user "$USER" \
   --www-port "${port}" \
   --auth-none 0 \
   --auth-timeout-minutes 0 \
@@ -96,6 +99,5 @@ singularity run --no-home -B "$BINDS" \
   --auth-encrypt-password 0 \
   $(if [[ ! -z "${RSTUDIO_WHICH_R}" ]]; then echo --rsession-which-r "${RSTUDIO_WHICH_R}"; fi) \
   --rsession-path "${RSESSION_WRAPPER_FILE}" \
-  --server-data-dir='/tmp/run' \
-  --server-user=$USER
+  --server-data-dir='/tmp/run' 
  
