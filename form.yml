@@ -42,7 +42,7 @@ attributes:
     value: 4
     help: Number of cores to allocate.
     min: 1
-    max: 32
+    max: 64
     step: 1
   bih_mem:
     widget: "number_field"
@@ -50,7 +50,7 @@ attributes:
     value: 4
     help: Memory to allocate for job.
     min: 1
-    max: 128
+    max: 256
   bih_days:
     widget: "number_field"
     label: "Running time [days]"
