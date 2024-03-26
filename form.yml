@@ -35,7 +35,7 @@ attributes:
       package!
     options:
       - [ "rocker-rstudio_4.3.1-0.sif", "rocker-rstudio_4.3.1-0.sif"  ]
-      - [ "singularity-rstudio-2022.02.1-461-0.sif (legacy)", "singularity-rstudio-2022.02.1-461-0.sif"  ]
+      - [ "rocker-rstudio_4.3.2.sif (beta)", "rocker-rstudio_4.3.2.sif"  ]
   bih_cpus:
     widget: "number_field"
     label: "Number of cores"
