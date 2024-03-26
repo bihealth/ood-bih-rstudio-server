@@ -3,13 +3,13 @@ set -x
 # Find available port to run server on
 port=$(find_port ${host})
 
-# Create ~/.singularity as symlink to work.
-if [[ ! -e ~/.singularity ]]; then
-    mkdir -p ~/work/.singularity
-    ln -sr ~/work/.singularity ~/.singularity
+# Create ~/.apptainer as symlink to work.
+if [[ ! -e ~/.apptainer ]]; then
+    mkdir -p ~/work/.apptainer
+    ln -sr ~/work/.apptainer ~/.apptainer
 fi
 
-export RSTUDIO_SERVER_IMAGE=/opt/ood/singularity-images/<%= context.singularity_image %>
+export RSTUDIO_SERVER_IMAGE=/opt/ood/singularity-images/<%= context.apptainer_image %>
 
 # Define a password and export it for RStudio authentication
 password="$(create_passwd 16)"

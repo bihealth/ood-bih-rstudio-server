@@ -3,7 +3,7 @@ cluster: "research"
 form:
   - r_provider
   - miniconda_path
-  - singularity_image
+  - apptainer_image
   - bih_cpus
   - bih_mem
   - bih_days
@@ -13,11 +13,11 @@ attributes:
     widget: "select"
     label: "R Source"
     help: |
-      You can either use one of the provided Singularity images (based
-      on miniconda3 Docker images) or provide a path to your miniconda3
+      You can either use R from within the provided Apptainer image (based
+      on the Rocker project) or provide a path to your miniconda
       installation.
     options:
-      - [ "singularity", "singularity" ]
+      - [ "Apptainer", "apptainer" ]
       - [ "miniconda",   "miniconda"   ]
   miniconda_path:
     widget: "text_field"
@@ -26,13 +26,12 @@ attributes:
       Specify the path including the "bin" of the Miniconda3 installation
       that you want to use.  Separate name of environment with a colon.
       Example: `~/miniconda3/bin:fancy-r`.
-  singularity_image:
+  apptainer_image:
     widget: "select"
-    label: "Singularity Image"
+    label: "Apptainer Image"
     help: |
-      The singularity images are based on CentOS 7 with R and RStudio
-      Server. Missing packages? Try to build and use your own miniconda
-      package!
+      The Apptainer images are not always up to date. Missing packages?
+      Try to build and use your own miniconda environment!
     options:
       - [ "rocker-rstudio_4.3.1-0.sif", "rocker-rstudio_4.3.1-0.sif"  ]
       - [ "rocker-rstudio_4.3.2.sif (beta)", "rocker-rstudio_4.3.2.sif"  ]
