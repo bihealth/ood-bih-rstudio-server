@@ -33,8 +33,8 @@ attributes:
       The Apptainer images are not always up to date. Missing packages?
       Try to build and use your own miniconda environment!
     options:
-      - [ "rocker-rstudio_4.3.1-0.sif", "rocker-rstudio_4.3.1-0.sif"  ]
-      - [ "rocker-rstudio_4.3.2.sif (beta)", "rocker-rstudio_4.3.2.sif"  ]
+      - [ "rocker-rstudio_4.3.2.sif", "rocker-rstudio_4.3.2.sif" ]
+      - [ "rocker-rstudio_4.3.3.sif (beta)", "rocker-rstudio_4.3.3.sif"  ]
   bih_cpus:
     widget: "number_field"
     label: "Number of cores"
