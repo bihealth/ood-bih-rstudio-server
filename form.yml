@@ -34,7 +34,8 @@ attributes:
       Try to build and use your own miniconda environment!
     options:
       - [ "rocker-rstudio_4.3.2.sif", "rocker-rstudio_4.3.2.sif" ]
-      - [ "rocker-rstudio_4.3.3.sif (beta)", "rocker-rstudio_4.3.3.sif"  ]
+      - [ "rocker-rstudio_4.3.3.sif", "rocker-rstudio_4.3.3.sif"  ]
+      - [ "rocker-rstudio_4.4.1.sif (beta)", "rocker-rstudio_4.4.1.sif"  ]
   bih_cpus:
     widget: "number_field"
     label: "Number of cores"
