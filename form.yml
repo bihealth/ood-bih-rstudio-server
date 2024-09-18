@@ -2,7 +2,7 @@
 cluster: "research"
 form:
   - r_provider
-  - miniconda_path
+  - conda_path
   - apptainer_image
   - bih_cpus
   - bih_mem
@@ -14,28 +14,28 @@ attributes:
     label: "R Source"
     help: |
       You can either use R from within the provided Apptainer image (based
-      on the Rocker project) or provide a path to your miniconda
+      on the Rocker project) or provide a path to your conda
       installation.
     options:
       - [ "Apptainer", "apptainer" ]
-      - [ "miniconda",   "miniconda"   ]
-  miniconda_path:
+      - [ "conda", "conda" ]
+  conda_path:
     widget: "text_field"
-    label: "Miniconda Path"
+    label: "Conda Path"
     help: |
-      Specify the path including the "bin" of the Miniconda3 installation
+      Specify the path including the "bin" of the Miniforge3 installation
       that you want to use.  Separate name of environment with a colon.
-      Example: `~/miniconda3/bin:fancy-r`.
+      Example: `~/work/miniforge/bin:fancy-r`.
   apptainer_image:
     widget: "select"
     label: "Apptainer Image"
     help: |
       The Apptainer images are not always up to date. Missing packages?
-      Try to build and use your own miniconda environment!
+      Try to build and use your own conda environment!
     options:
       - [ "rocker-rstudio_4.3.2.sif", "rocker-rstudio_4.3.2.sif" ]
-      - [ "rocker-rstudio_4.3.3.sif", "rocker-rstudio_4.3.3.sif"  ]
-      - [ "rocker-rstudio_4.4.1.sif (beta)", "rocker-rstudio_4.4.1.sif"  ]
+      - [ "rocker-rstudio_4.3.3.sif", "rocker-rstudio_4.3.3.sif" ]
+      - [ "rocker-rstudio_4.4.1.sif (beta)", "rocker-rstudio_4.4.1.sif" ]
   bih_cpus:
     widget: "number_field"
     label: "Number of cores"

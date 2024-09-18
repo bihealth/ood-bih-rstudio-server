@@ -16,10 +16,10 @@ export RSTUDIO_AUTH=$(readlink -f "<%= working_dir_container %>/bin/auth")
 
 source "<%= working_dir_container %>/.env"
 
-<% if context.r_provider == "miniconda" %>
-<% conda = context.miniconda_path.split(":") -%>
+<% if context.r_provider == "conda" %>
+<% conda = context.conda_path.split(":") -%>
 source <%= conda[0] %>/activate
-<% if context.miniconda_path.include? ":" %>
+<% if context.conda_path.include? ":" %>
 conda activate <%= conda[1] %>
 <% end %>
 export RSTUDIO_WHICH_R=$(which R)
@@ -44,10 +44,10 @@ sed 's/^ \{2\}//' > "<%= working_dir_host %>/rsession.sh" << EOL
 
   exec &>>"\${RSESSION_LOG_FILE}"
 
-<% if context.r_provider == "miniconda" -%>
+<% if context.r_provider == "conda" -%>
   source <%= conda[0] %>/activate
   CONDA_PATH="<%= conda[0].sub!("bin", "") %>"
-<% if context.miniconda_path.include? ":" -%>
+<% if context.conda_path.include? ":" -%>
   conda activate <%= conda[1] %>
   export LD_LIBRARY_PATH="\${CONDA_PATH/#\~/\$HOME}/envs/<%= conda[1] %>/lib:\$LD_LIBRARY_PATH"
 <% else -%>
