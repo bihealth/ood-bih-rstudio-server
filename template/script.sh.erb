@@ -83,13 +83,18 @@ chmod a+rw ${SERVER_DATA_DIR}/var/run
 chmod +t ${SERVER_DATA_DIR}/var/run
 
 CLUSTER_USER=$(echo $USER | sed -e 's/@CHARITE/_c/' -e 's/@MDC-BERLIN/_m/')
-#BINDS=$(readlink -f /fast/users/$CLUSTER_USER),$(readlink -f /fast/users/$CLUSTER_USER/work),$(readlink -f /fast/users/$CLUSTER_USER/scratch)
-#BINDS=/fast/users,/fast/projects/,/fast/groups,/fast/home,/fast/work,/fast/scratch
+
+# Set up bind mounts
+BINDS=/data,${SERVER_DATA_DIR}/var/lib:/var/lib/rstudio-server,${SERVER_DATA_DIR}/var/run:/var/run/rstudio-server
+
+# Add /fast if mounted
 if [[ -d /fast ]]; then
-    BINDS=/data,/fast,${SERVER_DATA_DIR}/var/lib:/var/lib/rstudio-server,${SERVER_DATA_DIR}/var/run:/var/run/rstudio-server
-else
-    BINDS=/data,${SERVER_DATA_DIR}/var/lib:/var/lib/rstudio-server,${SERVER_DATA_DIR}/var/run:/var/run/rstudio-server
+  BINDS=/fast,$BINDS
 fi
+
+# Activate Github Copilot
+echo "copilot-enabled=1" > "${SERVER_DATA_DIR}/rsession.conf"
+BINDS=$BINDS,${SERVER_DATA_DIR}/rsession.conf:/etc/rstudio/rsession.conf
 
 apptainer run --no-home -B "$BINDS" \
   --env "PATH=/usr/lib/rstudio-server/bin:${PATH}" \
@@ -105,3 +110,4 @@ apptainer run --no-home -B "$BINDS" \
   $(if [[ ! -z "${RSTUDIO_WHICH_R}" ]]; then echo --rsession-which-r "${RSTUDIO_WHICH_R}"; fi) \
   --rsession-path "${RSESSION_WRAPPER_FILE}" \
   --server-data-dir='/tmp/run'
+
