@@ -87,11 +87,6 @@ CLUSTER_USER=$(echo $USER | sed -e 's/@CHARITE/_c/' -e 's/@MDC-BERLIN/_m/')
 # Set up bind mounts
 BINDS=/data,${SERVER_DATA_DIR}/var/lib:/var/lib/rstudio-server,${SERVER_DATA_DIR}/var/run:/var/run/rstudio-server
 
-# Add /fast if mounted
-if [[ -d /fast ]]; then
-  BINDS=/fast,$BINDS
-fi
-
 # Activate Github Copilot
 echo "copilot-enabled=1" > "${SERVER_DATA_DIR}/rsession.conf"
 BINDS=$BINDS,${SERVER_DATA_DIR}/rsession.conf:/etc/rstudio/rsession.conf
