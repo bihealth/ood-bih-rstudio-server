@@ -5,8 +5,8 @@ port=$(find_port ${host})
 
 # Create ~/.apptainer as symlink to work.
 if [[ ! -e ~/.apptainer ]]; then
-    mkdir -p ~/work/bin/.apptainer
-    ln -sr ~/work/bin/.apptainer ~/.apptainer
+    mkdir -p ~/work/.apptainer
+    ln -sr ~/work/.apptainer ~/.apptainer
 fi
 
 export RSTUDIO_SERVER_IMAGE=/opt/ood/singularity-images/<%= context.apptainer_image %>
