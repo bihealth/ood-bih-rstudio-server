@@ -2,7 +2,7 @@
 
 set -x
 
-<%- 
+<%-
 working_dir_host = '${PWD}'
 working_dir_container = working_dir_host
 %>
@@ -38,12 +38,6 @@ sed 's/^ \{2\}//' > "<%= working_dir_host %>/rsession.sh" << EOL
     export LD_LIBRARY_PATH=\$x/lib/R/lib:\$LD_LIBRARY_PATH
   done
   export LD_LIBRARY_PATH=/usr/lib64/:\$LD_LIBRARY_PATH
-
-  # Preload specific libssl.so.3 to match the requirement for libcurl.so.4
-  export LD_PRELOAD=/data/cephfs-1/home/users/$USER/work/bin/miniforge3/envs/R_4.3.3/lib/libssl.so.3
-
-  # Add Conda environment libraries to LD_LIBRARY_PATH
-  export LD_LIBRARY_PATH=/data/cephfs-1/home/users/USER/work/bin/miniforge3/envs/R_4.3.3/lib:\$LD_LIBRARY_PATH
 
   # Log all output from this script
   export RSESSION_LOG_FILE="<%= working_dir_container %>/rsession.log"
@@ -92,11 +86,6 @@ CLUSTER_USER=$(echo $USER | sed -e 's/@CHARITE/_c/' -e 's/@MDC-BERLIN/_m/')
 
 # Set up bind mounts
 BINDS=/data,${SERVER_DATA_DIR}/var/lib:/var/lib/rstudio-server,${SERVER_DATA_DIR}/var/run:/var/run/rstudio-server
-
-# Add /fast if mounted
-if [[ -d /fast ]]; then
-  BINDS=/fast,$BINDS
-fi
 
 # Activate Github Copilot
 echo "copilot-enabled=1" > "${SERVER_DATA_DIR}/rsession.conf"
