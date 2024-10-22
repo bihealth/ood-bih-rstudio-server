@@ -53,6 +53,8 @@ attributes:
   bih_time:
     widget: "text_field"
     label: "Running time"
+    value: "1d"
+    required: true
     help: |
       Specify the running time as either hours (e.g., '12h') or days (e.g., '3d').
     pattern: "^([1-9]h|1[0-9]h|2[0-4]h|[1-9]d|1[0-4]d)$"
