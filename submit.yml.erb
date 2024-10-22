@@ -4,7 +4,7 @@
   time = bih_time
   if time.end_with?("h")
     formatted_time = "0-" + time.delete_suffix("h")
-  elsif time.include?("d")
+  elsif time.end_with?("d")
     formatted_time = time.delete_suffix("d") + "-0"
   end
 -%>
