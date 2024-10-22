@@ -105,4 +105,3 @@ apptainer run --no-home -B "$BINDS" \
   $(if [[ ! -z "${RSTUDIO_WHICH_R}" ]]; then echo --rsession-which-r "${RSTUDIO_WHICH_R}"; fi) \
   --rsession-path "${RSESSION_WRAPPER_FILE}" \
   --server-data-dir='/tmp/run'
-

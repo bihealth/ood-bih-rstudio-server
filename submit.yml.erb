@@ -1,7 +1,12 @@
-<%-
+<%- 
   cpus = bih_cpus.to_i
   mem = bih_mem.to_i
-  days = bih_days.to_i
+  time = bih_time
+  if time.end_with?("h")
+    formatted_time = "0-" + time.delete_suffix("h")
+  elsif time.end_with?("d")
+    formatted_time = time.delete_suffix("d") + "-0"
+  end
 -%>
 ---
 batch_connect:
@@ -17,4 +22,4 @@ script:
     - "--partition"
     - "<%= bih_partition %>"
     - "--time"
-    - "<%= days %>-0"
+    - "<%= formatted_time %>"
