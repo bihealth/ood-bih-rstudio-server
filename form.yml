@@ -32,9 +32,9 @@ attributes:
       The Apptainer images are not always up to date. Missing packages?
       Try to build and use your own conda environment!
     options:
-      - [ "rocker-rstudio_4.3.2.sif", "rocker-rstudio_4.3.2.sif" ]
       - [ "rocker-rstudio_4.3.3.sif", "rocker-rstudio_4.3.3.sif" ]
       - [ "rocker-rstudio_4.4.1.sif", "rocker-rstudio_4.4.1.sif" ]
+      - [ "rocker-rstudio_4.4.2.sif", "rocker-rstudio_4.4.2.sif" ]
   bih_cpus:
     widget: "number_field"
     label: "Number of cores"
