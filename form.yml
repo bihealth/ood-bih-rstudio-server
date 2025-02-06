@@ -1,8 +1,8 @@
 cluster: "research"
 form:
   - r_provider
-  - conda_path
   - apptainer_image
+  - conda_path
   - bih_cpus
   - bih_mem
   - bih_time
@@ -16,7 +16,7 @@ attributes:
       on the Rocker project) or provide a path to your conda
       installation.
     options:
-      - [ "Apptainer", "apptainer" ]
+      - [ "Apptainer", "apptainer", data-hide-conda-path: true ]
       - [ "conda", "conda" ]
   conda_path:
     widget: "text_field"
