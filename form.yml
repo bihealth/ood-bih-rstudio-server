@@ -16,8 +16,8 @@ attributes:
       on the Rocker project) or provide a path to your conda
       installation.
     options:
-      - [ "Apptainer", "apptainer", data-hide-conda-path: true ]
-      - [ "conda", "conda" ]
+      - [ "Apptainer", "apptainer", data-hide-conda-path: true, data-set-conda-path: "hidden" ]
+      - [ "conda", "conda", data-set-conda-path: ""]
   conda_path:
     widget: "text_field"
     label: "Conda Path"
@@ -25,6 +25,7 @@ attributes:
       Specify the path including the "bin" of the Miniforge3 installation
       that you want to use.  Separate name of environment with a colon.
       Example: `~/work/miniforge/bin:fancy-r`.
+    required: true
   apptainer_image:
     widget: "select"
     label: "Apptainer Image"
