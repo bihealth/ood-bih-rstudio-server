@@ -32,6 +32,7 @@ attributes:
     help: |
       The Apptainer images are not always up to date. Missing packages?
       Try to build and use your own conda environment!
+    value: "rocker-rstudio_4.5.0.sif"
     options:
       - [ "rocker-rstudio_4.5.0.sif", "rocker-rstudio_4.5.0.sif" ]
       - [ "rocker-rstudio_4.4.2.sif", "rocker-rstudio_4.4.2.sif" ]
