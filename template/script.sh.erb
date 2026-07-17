@@ -104,4 +104,5 @@ apptainer run --no-home -B "$BINDS" \
   --auth-encrypt-password 0 \
   $(if [[ ! -z "${RSTUDIO_WHICH_R}" ]]; then echo --rsession-which-r "${RSTUDIO_WHICH_R}"; fi) \
   --rsession-path "${RSESSION_WRAPPER_FILE}" \
+  --rsession-proxy-max-wait-secs 60 \
   --server-data-dir='/tmp/run'
